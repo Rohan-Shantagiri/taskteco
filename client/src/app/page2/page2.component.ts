@@ -16,7 +16,7 @@ export class Page2Component implements OnInit {
   constructor(private techservice:TechService) { }
 
   ngOnInit() {
-
+    // Fteching the data
     this.techservice.fetchdata().subscribe(
       result => {
         this.details = result;
@@ -24,7 +24,7 @@ export class Page2Component implements OnInit {
     )
   }
   
-
+  // Inserting Age to the db
   onageSubmit(){
     this.d = this.data
     this.techservice.updatedata(this.d.name,this.data).subscribe(
@@ -45,6 +45,7 @@ export class Page2Component implements OnInit {
     )
   }
 
+  // Delete operation
   ondeleteClick(name){
     this.techservice.deletedata(name).subscribe(
       result => {
@@ -65,6 +66,8 @@ export class Page2Component implements OnInit {
     )
   }
 
+
+  // Edit Modal Open
   oneditClick(name){
     console.log(name);
     this.techservice.fetchdatabyname(name).subscribe(
@@ -79,6 +82,7 @@ export class Page2Component implements OnInit {
     )
   }
 
+  // Edit Operation
   oneditSubmit(name){
     this.b = this.modalDetails
     console.log(this.modalDetails);

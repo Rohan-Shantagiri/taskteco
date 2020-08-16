@@ -19,20 +19,23 @@ export class Page1Component implements OnInit {
 
   onSubmit(){
 
+
+    // Fetching the data from db
     this.techservice.fetchdata().subscribe(
       result => {
         this.details = result;
         let i;
         this.d = this.data;
         
-        // if(this.details[i] != null){
+        // Condition to check whether the name entered is already present in db
         for(i =0; i < this.details.length; i++){
           if ( this.d.name == this.details[i].name ){
             this.present = true;
             return;
           }
         }
-      // }
+
+        // If not present then the name is inserted in the db
         this.techservice.addData(this.data).subscribe(
           result => {
             console.log(result);

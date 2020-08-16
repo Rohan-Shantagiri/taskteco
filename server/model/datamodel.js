@@ -3,6 +3,8 @@ const url = "mongodb://localhost:27017";
 var dbo;
 var db;
 
+
+//  Establishing connection with the Mongo Server
 MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true},(error,result)=>{
     if(error)
         throw error;
@@ -12,6 +14,8 @@ MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true},(error
     
 })
 
+
+// Mongo query for inserting the data
 function addData(data,callback){
     console.log(data);
     db.collection('data').insertOne(data,(error,result) => {
@@ -21,12 +25,14 @@ function addData(data,callback){
     })
 }
 
+// Mongo query for fetching the data
 function fetchdetails(callback){
     db.collection('data').find().toArray((error,result)=>{
         callback(result);
     })
 };
 
+// Mongo query for fetching the data with particular id
 function fetchdetailsid(name,callback){
     // console.log(name);
     db.collection('data').findOne({name : name},(error,result)=>{
@@ -34,12 +40,14 @@ function fetchdetailsid(name,callback){
     })
 };
 
+// Mongo query for deleting the data
 function deletedata(name,callback){
     db.collection('data').deleteOne({name:name},(err,result)=>{
         callback(result);
     })
 }
 
+// Mongo query for updating the data
 function updatedata(name,data,callback){
     db.collection('data').updateOne({name:name},{$set:data},(err,result)=>{
         callback(result);

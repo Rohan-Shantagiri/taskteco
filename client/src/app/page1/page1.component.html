@@ -1,9 +1,11 @@
 <div class="container">
     <form>
+        <!-- Input field for name -->
         <mat-form-field>
             <input matInput type="text" placeholder="Enter Name" [(ngModel)]="data.name" #name="ngModel" name="name"
              required pattern="[a-zA-z]+" minlength="3" maxlength="10">
         </mat-form-field>
+        <!-- Validation error messages -->
         <span *ngIf="name.errors && (name.dirty || name.touched)">
             <span [hidden]="!name.errors.required">Name is required</span>
             <span [hidden]="!name.errors.minlength">Name must be min 3 letters.</span>
@@ -12,6 +14,7 @@
          </span>
          <span *ngIf="present">Name already exist</span>
          <div>
+             <!-- Submit on clicked data is inserted -->
            <button mat-raised-button class="button" [disabled]=name.errors color="primary" (click)="onSubmit()">Submit</button>
          </div>  
     </form>
