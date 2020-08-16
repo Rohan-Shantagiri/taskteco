@@ -1,0 +1,17 @@
+<div class="container">
+    <form>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Enter Name" [(ngModel)]="data.name" #name="ngModel" name="name"
+             required pattern="[a-zA-z]+" minlength="3" maxlength="10">
+        </mat-form-field>
+        <span *ngIf="name.errors && (name.dirty || name.touched)">
+            <span [hidden]="!name.errors.required">Name is required</span>
+            <span [hidden]="!name.errors.minlength">Name must be min 3 letters.</span>
+            <span [hidden]="!name.errors.maxlength">Name can be max 10 letters.</span>
+            <span [hidden]="!name.errors.pattern">Name must not contain numbers</span>
+         </span>
+         <div>
+           <button mat-raised-button class="button" color="primary" (click)="onSubmit()">Submit</button>
+         </div>  
+    </form>
+</div>

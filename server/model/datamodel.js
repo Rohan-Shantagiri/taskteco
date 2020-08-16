@@ -7,12 +7,13 @@ MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true},(error
     if(error)
         throw error;
     dbo = result;
-    db = dbo.db('techdb');
+    db = result.db('techdb');
     console.log("Established connection to mongodb database Techdb");
+    
 })
 
-function addData(details,callback){
-    db.collection('data').insertOne(details,(error,result) => {
+function addData(data,callback){
+    db.collection('data').insertOne(data,(error,result) => {
         if(error)
            throw error;
         callback(result);
@@ -25,14 +26,29 @@ function fetchdetails(callback){
     })
 };
 
-function fetchdetailsid(id,callback){
-    db.collection('data').findOne({id : id},(error,result)=>{
+function fetchdetailsid(Id,callback){
+    db.collection('data').findOne({Id : Id},(error,result)=>{
+        console.log(Id);
         callback(result);
     })
 };
 
+function deletedata(name,callback){
+    db.collection('data').deleteOne({name:name},(err,result)=>{
+        callback(result);
+    })
+}
+
+function updatedata(name,data,callback){
+    db.collection('data').updateOne({name:name},{$set:data},(err,result)=>{
+        callback(result);
+    })
+}
+
 module.exports.fetchdetailsid = fetchdetailsid;
 module.exports.fetchdetails = fetchdetails;
 module.exports.addData = addData;
+module.exports.updatedata = updatedata;
+module.exports.deletedata = deletedata;
 
 
