@@ -12,12 +12,16 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material';
+import { MatTableModule } from '@angular/material';
+import {MatPaginatorModule} from '@angular/material';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
     AppComponent,
     Page1Component,
     Page2Component
+
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,10 @@ import { MatSelectModule } from '@angular/material';
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule,
+    MatPaginatorModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

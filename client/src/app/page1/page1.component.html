@@ -10,8 +10,9 @@
             <span [hidden]="!name.errors.maxlength">Name can be max 10 letters.</span>
             <span [hidden]="!name.errors.pattern">Name must not contain numbers</span>
          </span>
+         <span *ngIf="present">Name already exist</span>
          <div>
-           <button mat-raised-button class="button" color="primary" (click)="onSubmit()">Submit</button>
+           <button mat-raised-button class="button" [disabled]=name.errors color="primary" (click)="onSubmit()">Submit</button>
          </div>  
     </form>
 </div>

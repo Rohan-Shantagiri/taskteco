@@ -13,6 +13,7 @@ MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true},(error
 })
 
 function addData(data,callback){
+    console.log(data);
     db.collection('data').insertOne(data,(error,result) => {
         if(error)
            throw error;
@@ -26,9 +27,9 @@ function fetchdetails(callback){
     })
 };
 
-function fetchdetailsid(Id,callback){
-    db.collection('data').findOne({Id : Id},(error,result)=>{
-        console.log(Id);
+function fetchdetailsid(name,callback){
+    // console.log(name);
+    db.collection('data').findOne({name : name},(error,result)=>{
         callback(result);
     })
 };

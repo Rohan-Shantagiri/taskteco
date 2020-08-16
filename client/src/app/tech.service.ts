@@ -10,7 +10,7 @@ export class TechService {
   private updatedataurl = "http://localhost:3000/control/update/";
   private deleteDataurl = "http://localhost:3000/control/del/";
   private fetchDataurl = "http://localhost:3000/control";
-  private fetchDataidurl = "http://localhost:3000/control"
+  private fetchDataidurl = "http://localhost:3000/control/"
 
   constructor(private http: HttpClient) { }
 
@@ -19,11 +19,13 @@ export class TechService {
   }
 
   updatedata(name,data){
+    console.log(name);
+    console.log(data)
     return (this.http.put<any>(this.updatedataurl+name,data));
   }
 
-  deletedata(name,data){
-    return (this.http.delete<any>(this.deleteDataurl+name,data));
+  deletedata(name){
+    return (this.http.delete<any>(this.deleteDataurl+name));
   }
 
   fetchdata(){
@@ -31,6 +33,6 @@ export class TechService {
   }
 
   fetchdatabyname(name){
-    return (this.http.get<any>(this.fetchDataidurl,name));
+    return (this.http.get<any>(this.fetchDataidurl+name));
   }
 }

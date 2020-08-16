@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { TechService } from '../tech.service';
+
 
 @Component({
   selector: 'app-page2',
@@ -9,29 +10,29 @@ import { TechService } from '../tech.service';
 export class Page2Component implements OnInit {
 
   data = {};
-  name : any[];
+  details: any[];
+  modalDetails = {};
+  d;b;
   constructor(private techservice:TechService) { }
 
   ngOnInit() {
 
     this.techservice.fetchdata().subscribe(
       result => {
-        console.log(result);
-        this.name = result;
+        this.details = result;
       }
     )
   }
-
   
 
   onageSubmit(){
-    console.log(this.data.name);
-    this.techservice.updatedata(this.data.name,this.data).subscribe(
+    this.d = this.data
+    this.techservice.updatedata(this.d.name,this.data).subscribe(
       result => {
-        console.log(this.name)
         this.techservice.fetchdata().subscribe(
           result =>{
             console.log(result);
+            window.location.reload();
           },
           error => {
             console.log(error);
@@ -44,4 +45,55 @@ export class Page2Component implements OnInit {
     )
   }
 
+  ondeleteClick(name){
+    this.techservice.deletedata(name).subscribe(
+      result => {
+        this.techservice.fetchdata().subscribe(
+          result =>{
+            console.log(result);
+            window.location.reload();
+          },
+          error => {
+            console.log(error);
+          }
+        )
+        console.log(result);
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
+  oneditClick(name){
+    console.log(name);
+    this.techservice.fetchdatabyname(name).subscribe(
+      result => {
+        this.modalDetails = result;
+        console.log(result);
+        console.log(this.modalDetails);
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
+  oneditSubmit(name){
+    this.b = this.modalDetails
+    console.log(this.modalDetails);
+    delete this.b._id;
+    this.techservice.updatedata(name,this.b).subscribe(
+      result => {
+        console.log(result);
+        window.location.reload();
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+  
+
 }
+

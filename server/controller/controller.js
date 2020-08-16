@@ -4,16 +4,14 @@ const datamodel = require('../model/datamodel');
 
 
 router.get('/',(request,response)=>{
-    console.log("check2");
     datamodel.fetchdetails((result)=>{
-        console.log("check1");
         response.status(200).send(result);
     })
 })
 
 router.get('/:id',(request,response)=>{
     // console.log("check2");
-    let id = parseInt(request.params.id);
+    let id = request.params.id;
     datamodel.fetchdetailsid(id,(result)=>{
         // console.log("check1");
         response.status(200).send(result);
@@ -22,23 +20,24 @@ router.get('/:id',(request,response)=>{
 
 router.put('/update/:id',(request,response)=>{
     let id = request.params.id;
+    // console.log(id);
     let data = request.body;
+    // console.log(data);
     datamodel.updatedata(id,data,(result)=>{
         response.status(200).send(result);
     });
 })
 
 router.post('/addData',(request,response)=>{
-    console.log("check2");
     let data = request.body;
-    console.log("check1");
+    console.log(this.data);
     datamodel.addData(data,(result) => {
         response.status(200).send(result);
     })
 })
 
 router.delete('/del/:id',(request,response)=>{
-    let id = parseInt(request.params.id);
+    let id = request.params.id;
     datamodel.deletedata(id,(result) => {
         response.status(200).send(result);
     })

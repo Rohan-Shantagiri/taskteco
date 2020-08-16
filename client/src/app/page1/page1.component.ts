@@ -9,20 +9,39 @@ import { TechService } from '../tech.service';
 export class Page1Component implements OnInit {
 
   data = {};
+  d;
+  present:boolean = false;
+  details: any[];
   constructor(private techservice:TechService) { }
 
   ngOnInit() {
   }
 
   onSubmit(){
-    this.techservice.addData(this.data).subscribe(
+
+    this.techservice.fetchdata().subscribe(
       result => {
-        console.log(this.data);
-      },
-      error => {
-        console.log(error);
+        this.details = result;
+        let i;
+        this.d = this.data;
+        
+        // if(this.details[i] != null){
+        for(i =0; i < this.details.length; i++){
+          if ( this.d.name == this.details[i].name ){
+            this.present = true;
+            return;
+          }
+        }
+      // }
+        this.techservice.addData(this.data).subscribe(
+          result => {
+            console.log(result);
+          },
+          error => {
+            console.log(error);
+          }
+        )
       }
     )
-  }
-
+    }
 }

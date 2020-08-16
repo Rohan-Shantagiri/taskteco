@@ -1,19 +1,94 @@
-<div class="container">
+<div class="container2">
     <form>
         <mat-form-field>
             <mat-label>Select</mat-label>
-            <mat-select  [(ngModel)]="data.name" name="name">
-              <mat-option value={{n.name}} *ngFor="let n of name">{{n.name}}</mat-option>
+            <mat-select [(ngModel)]="data.name" name="name">
+                <mat-option value={{d.name}} *ngFor="let d of details">{{d.name}}</mat-option>
             </mat-select>
         </mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;
-            <mat-form-field>
-                <input matInput type="text" placeholder="Enter Age" [(ngModel)]="data.age" name="age" #age="ngModel"
-                 required pattern="[0-9]+">
-            </mat-form-field>
-            <span *ngIf="age.errors && (age.dirty || age.touched)">
-                <span [hidden]="!age.errors.required">Age is required</span>
-                <span [hidden]="!age.errors.pattern">Age must be in numbers</span>
-            </span>
-            <button mat-raised-button class="button" color="primary" (click)="onageSubmit()">Submit</button>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Enter Age" [(ngModel)]="data.age" name="age" #age="ngModel"
+                required pattern="[0-9]+">
+        </mat-form-field>
+        <span *ngIf="age.errors && (age.dirty || age.touched)">
+            <span [hidden]="!age.errors.required">Age is required</span>
+            <span [hidden]="!age.errors.pattern">Age must be in numbers</span>
+        </span>
+        <button mat-raised-button class="button" color="primary" (click)="onageSubmit()">Submit</button>
     </form>
+</div>
+<div class="container">
+    <table datatable id="table" class="row-border hover">
+        <thead>
+            <tr>
+                <th>Sno</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let d of details; let n=index">
+                <td>{{n+1}}</td>
+                <td>{{d.name}}</td>
+                <td>{{d.age}}</td>
+                <td> <button mat-icon-button color="primary" (click)="ondeleteClick(d.name)">
+                        <mat-icon>delete</mat-icon>
+                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button mat-icon-button color="primary" (click)="oneditClick(d.name)" data-toggle="modal"
+                        data-target="#myModal">
+                        <mat-icon>edit</mat-icon>
+                 </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Edit Details</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form>
+                    <div>
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Enter Name" [(ngModel)]="modalDetails.name" #name="ngModel" name="name"
+                         required pattern="[a-zA-z]+" minlength="3" maxlength="10">
+                    </mat-form-field>
+                    <span *ngIf="name.errors && (name.dirty || name.touched)">
+                        <span [hidden]="!name.errors.required">Name is required</span>
+                        <span [hidden]="!name.errors.minlength">Name must be min 3 letters.</span>
+                        <span [hidden]="!name.errors.maxlength">Name can be max 10 letters.</span>
+                        <span [hidden]="!name.errors.pattern">Name must not contain numbers</span>
+                     </span>
+                    </div>
+                    <div>
+                     <mat-form-field>
+                        <input matInput type="text" placeholder="Enter Age" [(ngModel)]="modalDetails.age" name="age" #age="ngModel"
+                            required pattern="[0-9]+">
+                    </mat-form-field>
+                    <span *ngIf="age.errors && (age.dirty || age.touched)">
+                        <span [hidden]="!age.errors.required">Age is required</span>
+                        <span [hidden]="!age.errors.pattern">Age must be in numbers</span>
+                    </span>
+                </div>
+                </form>
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="oneditSubmit(modalDetails.name)">Edit</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    
 </div>
